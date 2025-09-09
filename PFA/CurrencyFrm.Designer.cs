@@ -34,11 +34,17 @@
             textBox1 = new TextBox();
             label2 = new Label();
             label1 = new Label();
+            groupBox2 = new GroupBox();
+            listView1 = new ListView();
+            button2 = new Button();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(textBox2);
             groupBox1.Controls.Add(textBox1);
@@ -96,11 +102,43 @@
             label1.TabIndex = 0;
             label1.Text = "Ім'я валюти";
             // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Controls.Add(listView1);
+            groupBox2.Location = new Point(13, 209);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(901, 311);
+            groupBox2.TabIndex = 1;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Доступні валюти";
+            // 
+            // listView1
+            // 
+            listView1.Dock = DockStyle.Fill;
+            listView1.Location = new Point(3, 28);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(895, 280);
+            listView1.TabIndex = 0;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // button2
+            // 
+            button2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            button2.Location = new Point(781, 135);
+            button2.Name = "button2";
+            button2.Size = new Size(115, 42);
+            button2.TabIndex = 5;
+            button2.Text = "Видалити";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // CurrencyFrm
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(937, 532);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Font = new Font("Segoe UI", 14F);
             Margin = new Padding(5);
@@ -109,6 +147,7 @@
             Text = "Валюта";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -120,5 +159,8 @@
         private TextBox textBox1;
         private Label label2;
         private Label label1;
+        private GroupBox groupBox2;
+        private ListView listView1;
+        private Button button2;
     }
 }
