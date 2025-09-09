@@ -38,12 +38,13 @@
             // 
             button1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             button1.Location = new Point(8, 33);
-            button1.Margin = new Padding(5, 5, 5, 5);
+            button1.Margin = new Padding(5);
             button1.Name = "button1";
             button1.Size = new Size(125, 64);
             button1.TabIndex = 0;
             button1.Text = "Гаманці";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // groupBox1
             // 
@@ -75,7 +76,7 @@
             ClientSize = new Size(668, 447);
             Controls.Add(groupBox1);
             Font = new Font("Segoe UI", 14F);
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Головна форма";

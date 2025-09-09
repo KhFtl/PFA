@@ -14,7 +14,7 @@ namespace PFA
 {
     public partial class Form1 : Form
     {
-        private readonly FinanceDbContext dbContext; 
+        private readonly FinanceDbContext dbContext;
         public Form1(FinanceDbContext context)
         {
             InitializeComponent();
@@ -25,6 +25,12 @@ namespace PFA
         {
             CurrencyFrm cF = new CurrencyFrm(dbContext);
             cF.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WalletFrm wF = new WalletFrm(dbContext);
+            wF.ShowDialog();
         }
     }
 }
