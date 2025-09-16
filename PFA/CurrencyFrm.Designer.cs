@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            btn_del = new Button();
             button1 = new Button();
             textBox2 = new TextBox();
             textBox1 = new TextBox();
@@ -36,7 +37,6 @@
             label1 = new Label();
             groupBox2 = new GroupBox();
             listView1 = new ListView();
-            button2 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -44,7 +44,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(btn_del);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(textBox2);
             groupBox1.Controls.Add(textBox1);
@@ -56,6 +56,17 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Введення";
+            // 
+            // btn_del
+            // 
+            btn_del.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btn_del.Location = new Point(781, 135);
+            btn_del.Name = "btn_del";
+            btn_del.Size = new Size(115, 42);
+            btn_del.TabIndex = 5;
+            btn_del.Text = "Видалити";
+            btn_del.UseVisualStyleBackColor = true;
+            btn_del.Click += button2_Click;
             // 
             // button1
             // 
@@ -122,17 +133,6 @@
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             // 
-            // button2
-            // 
-            button2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            button2.Location = new Point(781, 135);
-            button2.Name = "button2";
-            button2.Size = new Size(115, 42);
-            button2.TabIndex = 5;
-            button2.Text = "Видалити";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
-            // 
             // CurrencyFrm
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
@@ -161,6 +161,6 @@
         private Label label1;
         private GroupBox groupBox2;
         private ListView listView1;
-        private Button button2;
+        private Button btn_del;
     }
 }

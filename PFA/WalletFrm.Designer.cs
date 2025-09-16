@@ -39,6 +39,7 @@
             label1 = new Label();
             groupBox2 = new GroupBox();
             groupBox3 = new GroupBox();
+            btn_del = new Button();
             ((System.ComponentModel.ISupportInitialize)dgrv_wallet).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btn_del);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(comboBox1);
             groupBox1.Controls.Add(textBox2);
@@ -150,6 +152,17 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Транзакції";
             // 
+            // btn_del
+            // 
+            btn_del.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            btn_del.Location = new Point(346, 264);
+            btn_del.Name = "btn_del";
+            btn_del.Size = new Size(218, 55);
+            btn_del.TabIndex = 7;
+            btn_del.Text = "Видалення гаманця";
+            btn_del.UseVisualStyleBackColor = true;
+            btn_del.Click += btn_del_Click;
+            // 
             // WalletFrm
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
@@ -183,5 +196,6 @@
         private Label label3;
         private Button button1;
         private ComboBox comboBox1;
+        private Button btn_del;
     }
 }

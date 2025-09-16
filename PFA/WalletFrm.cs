@@ -69,7 +69,7 @@ namespace PFA
             decimal? Balance = textBox2.Text.Length > 0 ? decimal.Parse(textBox2.Text) : null;
             int? CurrencyId = Convert.ToInt32(comboBox1.SelectedValue);
             if (walletName == null || Balance == null || CurrencyId == null)
-            { 
+            {
                 MessageBox.Show("Заповніть всі поля!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -82,6 +82,39 @@ namespace PFA
             _dbContext.Wallets.Add(wallet);
             _dbContext.SaveChanges();
             LoadTableWallets();
+        }
+
+        //- додав і написав реалізацію кнопки 
+        private void btn_del_Click(object sender, EventArgs e)
+        {
+            if (dgrv_wallet.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Виберіть гаманець для видалення.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var selectedRow = dgrv_wallet.SelectedRows[0];
+            int walletId = (int)selectedRow.Cells["WalletId"].Value;
+
+            var wallet = _dbContext.Wallets.FirstOrDefault(w => w.WalletId == walletId);
+            if (wallet == null)
+            {
+                MessageBox.Show("Гаманець не знайдено.", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var confirmResult = MessageBox.Show(
+                $"Ви впевнені, що хочете видалити гаманець \"{wallet.Name}\"?",
+                "Підтвердження видалення",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                _dbContext.Wallets.Remove(wallet);
+                _dbContext.SaveChanges();
+                LoadTableWallets();
+            }
         }
     }
 }

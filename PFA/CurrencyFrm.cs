@@ -24,23 +24,33 @@ namespace PFA
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var item = _dbContext.Currencies.ToList();
+            //-добавив перевірку на пусті поля
+            if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            {
+                MessageBox.Show("Заповніть усі поля!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Currency c = new Currency
             {
-                Name = textBox1.Text,
-                Symbol = textBox2.Text
+                Name = textBox1.Text.Trim(),
+                Symbol = textBox2.Text.Trim()
             };
-            var existCurrecie = _dbContext.Currencies.FirstOrDefault(x => x.Name == c.Name);
-            if (existCurrecie == null)
+
+            var existCurrency = _dbContext.Currencies.FirstOrDefault(x => x.Name == c.Name);
+            if (existCurrency == null)
             {
                 _dbContext.Currencies.Add(c);
                 _dbContext.SaveChanges();
                 LoadCurrenciesToListView();
+                textBox1.Clear();
+                textBox2.Clear();
             }
             else
             {
                 MessageBox.Show("Валюта з таким ім'ям вже існує", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
         private void LoadCurrenciesToListView()
         {
@@ -62,23 +72,45 @@ namespace PFA
             }
         }
 
+        //-переробив видалення валюти з перевіркою на використання в гаманцях
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
+            if (listView1.SelectedItems.Count == 0)
+                return;
+
+            string currencyID = listView1.SelectedItems[0].SubItems[0].Text;
+            if (!int.TryParse(currencyID, out int id))
+                return;
+
+            var currency = _dbContext.Currencies.Find(id);
+            if (currency == null)
+                return;
+
+            var result = MessageBox.Show(
+                $"Ви впевнені, що хочете видалити валюту\n{currency.Name}?",
+                "Підтвердження",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            bool isUsed = _dbContext.Wallets.Any(w => w.CurrencyId == currency.CurrencyId);
+            if (isUsed)
             {
-                string CurencyID = listView1.SelectedItems[0].SubItems[0].Text;
-                var currency = _dbContext.Currencies.Find(int.Parse(CurencyID));
-                if (currency != null)
-                {
-                    var result = MessageBox.Show($"Ви впевнені, що хочете видалити валюту\n{currency.Name}?","Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
-                    {
-                        _dbContext.Currencies.Remove(currency);
-                        _dbContext.SaveChanges();
-                        LoadCurrenciesToListView();
-                    }
-                }
+                MessageBox.Show(
+                    "Неможливо видалити валюту, бо вона використовується в гаманцях.",
+                    "Помилка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
             }
+
+            _dbContext.Currencies.Remove(currency);
+            _dbContext.SaveChanges();
+            LoadCurrenciesToListView();
         }
     }
 }
